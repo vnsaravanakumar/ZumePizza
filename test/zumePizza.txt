@@ -1,0 +1,55 @@
+/*
+- Please either fork this fiddle or copy the code.
+- Please write a test suite for the 'subtotal' function. The subtotal should be the sum of each item's price times the count of each item.
+
+e.g.:
+ subtotal([{price:1,count:3}]) === 3
+
+*/
+
+mocha.setup("bdd");
+chai.should();
+
+// function to test.
+function subtotal(items) {
+    var subtotal = items.reduce(function(acc,item) {
+        return acc + (item.price * item.count);
+    },0);
+
+		return subtotal;
+}
+
+//test suite
+describe('Test Suite for subtotal ', function() {
+// Example test
+    it('if price is 1 and count is 3 subtotal returns 3', function() {
+    	subtotal([{ price: 1, count: 3}]).should.equal(3);
+    });
+    
+// *** Please add additional tests below. Try to think of different edge cases.
+    it('if prices list is empty subtotal returns 0', function() {
+    	subtotal([]).should.equal(0);
+    });
+  
+    it('if count is zero subtotal returns 0', function() {
+    	subtotal([{price: 1, count: 0}]).should.equal(0);
+    });
+  
+    it('if price is zero subtotal returns 0', function() {
+    	subtotal([{price: 0, count: 2}]).should.equal(0);
+    });
+  
+    it('if prices are 1 and 2 with count is 3 and 2 respectively subtotal returns 7', function() {
+    	subtotal([{ price: 1, count: 3},
+               { price: 2, count: 2}]).should.equal(7);
+    });
+  
+    it('if price and/or count is 0 subtotal should be 0 only for that item', function() {
+    	subtotal([{ price: 1, count: 3},
+               { price: 2, count: 2},
+               { price: 0, count: 2},
+               { price: 3, count: 0}]).should.equal(7);
+    });
+});
+
+mocha.run();
